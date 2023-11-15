@@ -39,7 +39,6 @@ jobs:
 
     - name: Create Docker Build and Upload to ECR 
       run: | 
-        cd CrudDemoWithMySql
         aws s3 cp s3://online-book-store-iiit/Menu-Driven-0.0.1-SNAPSHOT.jar ./
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/s3c4l2m0
         docker build -t online-book .
