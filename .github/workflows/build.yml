@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest  # You can choose a different runner if needed
 
     steps:
+    - uses: actions/setup-java@v2
+      with:
+          distribution: 'adopt'
+          java-version: '21'
     - name: Checkout code
       uses: actions/checkout@v2
 
