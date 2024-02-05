@@ -45,6 +45,18 @@ jobs:
         docker tag online-book:latest public.ecr.aws/s3c4l2m0/online-book:latest
         docker push public.ecr.aws/s3c4l2m0/online-book:latest
 
+    - name: Monitor URL
+      run: |
+        URL="https://online-library.neuraforgelabs.click/"
+        STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $URL)
+
+        if [ $STATUS_CODE -eq 200 ]; then
+          echo "Deployment Successfull !!! , Application is Healty. Status code: $STATUS_CODE"
+        else
+          echo "Deployment Failed , Application Not Healty. Status code: $STATUS_CODE"
+          exit 1
+        fi
+
     - name: Deploy to ECS
       run: |
         aws ecs update-service --cluster online-library --service online-library --force-new-deployment
