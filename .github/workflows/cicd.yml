@@ -44,3 +44,7 @@ jobs:
         docker build -t online-book .
         docker tag online-book:latest public.ecr.aws/s3c4l2m0/online-book:latest
         docker push public.ecr.aws/s3c4l2m0/online-book:latest
+
+    - name: Deploy to ECS
+      run: |
+        aws ecs update-service --cluster online-library --service online-library --force-new-deployment
